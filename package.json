@@ -16,11 +16,12 @@
     }
   },
   "scripts": {
-    "dev": "storybook dev -p 3000",
+    "build-storybook": "storybook build",
     "build": "tsc && vite build",
+    "dev": "storybook dev -p 3000",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "build-storybook": "storybook build"
+    "test": "echo 'Passing no tests'"
   },
   "peerDependencies": {
     "@mantine/core": ">=6.0.19",

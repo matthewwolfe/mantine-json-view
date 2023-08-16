@@ -47,6 +47,7 @@ export const Default: Story = {
         <IconClipboardCopy
           onClick={() => navigator.clipboard.writeText(value)}
           size={16}
+          style={{ cursor: 'pointer' }}
         />
       )}
       json={JSON.stringify(json)}

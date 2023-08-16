@@ -28,6 +28,8 @@ function JsonArray({ array }: Props) {
             {array.children.length}{' '}
             {array.children.length !== 1 ? 'items' : 'item'}
           </Text>
+
+          {collapsed && <Text fz="md">{']'}</Text>}
         </Flex>
       </Flex>
 
@@ -46,7 +48,7 @@ function JsonArray({ array }: Props) {
         </Flex>
       )}
 
-      <Text fz="md">{']'}</Text>
+      {!collapsed && <Text fz="md">{']'}</Text>}
     </Flex>
   );
 }

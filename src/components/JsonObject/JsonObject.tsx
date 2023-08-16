@@ -28,6 +28,8 @@ function JsonObject({ object }: Props) {
             {object.children.length}{' '}
             {object.children.length !== 1 ? 'items' : 'item'}
           </Text>
+
+          {collapsed && <Text fz="md">{'}'}</Text>}
         </Flex>
       </Flex>
 
@@ -46,7 +48,7 @@ function JsonObject({ object }: Props) {
         </Flex>
       )}
 
-      <Text fz="md">{'}'}</Text>
+      {!collapsed && <Text fz="md">{'}'}</Text>}
     </Flex>
   );
 }

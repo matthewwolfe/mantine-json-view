@@ -5,6 +5,10 @@
     "node": "18",
     "pnpm": "8.6.12"
   },
+  "files": [
+    "dist",
+    "package.json"
+  ],
   "main": "./dist/index.umd.js",
   "module": "./dist/index.es.js",
   "types": "./dist/index.d.ts",

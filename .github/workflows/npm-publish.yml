@@ -1,6 +1,6 @@
 # This workflow will run when a push occurs on main
 
-name: Mantine Json View Package
+name: Mantine Json View
 
 on:
   push:
@@ -18,14 +18,15 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - run: git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
       - run: git config user.name "$GITHUB_ACTOR"
-      - run: pnpm test
-      - run: npm version patch
+      - run: PNPM_VERSION=$(node -p "require('./package.json').version")
+      - run: npm install -g pnpm@$PNPM_VERSION
+      - run: pnpm version patch
         working-directory: ./
         if: ${{ !contains(github.event.head_commit.message, 'minor') && !contains(github.event.head_commit.message, 'major') }}
-      - run: npm version minor
+      - run: pnpm version minor
         working-directory: ./
         if: ${{ contains(github.event.head_commit.message, 'minor') }}
-      - run: npm version major
+      - run: pnpm version major
         working-directory: ./
         if: ${{ contains(github.event.head_commit.message, 'major') }}
       - run: VERSION=$(node -p "require('./package.json').version")
@@ -33,11 +34,11 @@ jobs:
       - run: git tag ${VERSION}
       - run: git push "https://$GITHUB_ACTOR:${{ secrets.ACCESS_TOKEN }}@github.com/$GITHUB_REPOSITORY.git" --follow-tags
       - run: git push "https://$GITHUB_ACTOR:${{ secrets.ACCESS_TOKEN }}@github.com/$GITHUB_REPOSITORY.git" --tags
-      - run: npm install --force
         working-directory: ./
-      - run: npm run build
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
         working-directory: ./
-      - run: npm publish --access public
+      - run: pnpm publish --access public
         working-directory: ./
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

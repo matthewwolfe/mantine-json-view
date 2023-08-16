@@ -1,22 +1,24 @@
 import { createContext } from 'react';
 
-interface CollapseIcons {
+import type { FC } from 'react';
+
+interface CollapseProps {
   collapsed: boolean;
   setCollapsed: (collapsed: boolean) => void;
 }
 
-interface CopyToClipboard {
+interface ClipboardProps {
   value: string;
 }
 
 export interface Context {
-  collapseIcons: (options: CollapseIcons) => JSX.Element | null;
-  copyToClipboard: (options: CopyToClipboard) => JSX.Element | null;
+  collapseComponent: FC<CollapseProps> | undefined;
+  clipboardComponent: FC<ClipboardProps> | undefined;
 }
 
 const JsonViewContext = createContext<Context>({
-  collapseIcons: () => null,
-  copyToClipboard: () => null,
+  collapseComponent: undefined,
+  clipboardComponent: undefined,
 });
 
 export { JsonViewContext };

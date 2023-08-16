@@ -5,7 +5,8 @@ import { JsonViewContext } from 'context';
 import type { Props } from './JsonLiteral.types';
 
 function JsonLiteral({ literal }: Props) {
-  const { copyToClipboard } = useContext(JsonViewContext);
+  const { clipboardComponent: ClipboardComponent } =
+    useContext(JsonViewContext);
 
   const value = useMemo(() => {
     switch (literal.type) {
@@ -32,7 +33,7 @@ function JsonLiteral({ literal }: Props) {
         "{literal.key}": {value}
       </Text>
 
-      {copyToClipboard({ value })}
+      {ClipboardComponent !== undefined && <ClipboardComponent value={value} />}
     </Flex>
   );
 }

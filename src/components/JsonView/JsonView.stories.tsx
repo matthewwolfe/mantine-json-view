@@ -26,7 +26,7 @@ const json = {
 export const Default: Story = {
   render: () => (
     <JsonView
-      collapseIcons={({ collapsed, setCollapsed }) => {
+      collapseComponent={({ collapsed, setCollapsed }) => {
         if (collapsed) {
           return (
             <IconSquareChevronRightFilled
@@ -43,7 +43,7 @@ export const Default: Story = {
           />
         );
       }}
-      copyToClipboard={({ value }) => (
+      clipboardComponent={({ value }) => (
         <IconClipboardCopy
           onClick={() => navigator.clipboard.writeText(value)}
           size={16}

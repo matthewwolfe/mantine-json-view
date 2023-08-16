@@ -7,14 +7,19 @@ import { JsonViewContext } from 'context';
 import type { Props } from './JsonArray.types';
 
 function JsonArray({ array }: Props) {
-  const { collapseIcons } = useContext(JsonViewContext);
+  const { collapseComponent: CollapseComponent } = useContext(JsonViewContext);
 
   const [collapsed, setCollapsed] = useState<boolean>(false);
 
   return (
     <Flex direction={collapsed ? 'row' : 'column'} px="xs">
       <Flex sx={{ gap: 4, alignItems: 'center' }}>
-        {collapseIcons({ collapsed, setCollapsed })}
+        {CollapseComponent !== undefined && (
+          <CollapseComponent
+            collapsed={collapsed}
+            setCollapsed={setCollapsed}
+          />
+        )}
 
         <Flex sx={{ alignItems: 'center' }} gap="xs">
           <Text fz="md">{'"array": ['}</Text>

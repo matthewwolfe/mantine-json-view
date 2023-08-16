@@ -1,8 +1,20 @@
 {
   "name": "mantine-json-view",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": "18",
+    "pnpm": "8"
+  },
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.es.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.umd.js"
+    }
+  },
   "scripts": {
     "dev": "storybook dev -p 3000",
     "build": "tsc && vite build",
@@ -10,18 +22,17 @@
     "preview": "vite preview",
     "build-storybook": "storybook build"
   },
-  "dependencies": {
-    "@emotion/react": "^11.11.1",
-    "@mantine/core": "^6.0.19",
-    "@mantine/hooks": "^6.0.19",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+  "peerDependencies": {
+    "@mantine/core": ">=6.0.19",
+    "react": ">=18",
+    "react-dom": ">=18"
   },
   "devDependencies": {
+    "@emotion/react": "^11.11.1",
+    "@mantine/core": "^6.0.19",
     "@storybook/addon-essentials": "^7.2.3",
     "@storybook/addon-interactions": "^7.2.3",
     "@storybook/addon-links": "^7.2.3",
-    "@storybook/addon-onboarding": "^1.0.8",
     "@storybook/blocks": "^7.2.3",
     "@storybook/react": "^7.2.3",
     "@storybook/react-vite": "^7.2.3",
@@ -36,8 +47,11 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
     "eslint-plugin-storybook": "^0.6.13",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "storybook": "^7.2.3",
     "typescript": "^5.1.6",
-    "vite": "^4.4.9"
+    "vite": "^4.4.9",
+    "vite-plugin-dts": "^3.5.2"
   }
 }

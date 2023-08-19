@@ -41,14 +41,14 @@ jobs:
 
       - run: VERSION=$(node -p "require('./package.json').version")
       - run: git tag ${VERSION}
-        if: ${{ NEW_VERSION == 'true' }}
+        if: ${{ $NEW_VERSION == 'true' }}
       - run: git push "https://$GITHUB_ACTOR:${{ secrets.ACCESS_TOKEN }}@github.com/$GITHUB_REPOSITORY.git" --follow-tags
-        if: ${{ NEW_VERSION == 'true' }}
+        if: ${{ $NEW_VERSION == 'true' }}
       - run: git push "https://$GITHUB_ACTOR:${{ secrets.ACCESS_TOKEN }}@github.com/$GITHUB_REPOSITORY.git" --tags
-        if: ${{ NEW_VERSION == 'true' }}
+        if: ${{ $NEW_VERSION == 'true' }}
       - run: pnpm build
-        if: ${{ NEW_VERSION == 'true' }}
+        if: ${{ $NEW_VERSION == 'true' }}
       - run: pnpm publish --access public
-        if: ${{ NEW_VERSION == 'true' }}
+        if: ${{ $NEW_VERSION == 'true' }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

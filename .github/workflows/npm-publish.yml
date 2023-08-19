@@ -7,6 +7,9 @@ on:
     branches:
       - main
 
+env:
+  NEEDS_PUBLISH: false
+
 jobs:
   update-version:
     runs-on: ubuntu-latest
@@ -22,33 +25,32 @@ jobs:
       - run: npm install -g pnpm@$PNPM_VERSION
       - run: pnpm install --frozen-lockfile
       - run: pnpm test
-      - run: NEW_VERSION=false
 
-      - run: |
-          pnpm version patch \
-          NEW_VERSION=true
-        if: ${{ contains(github.event.head_commit.message, 'patch:') }}
+      - if: ${{ contains(github.event.head_commit.message, 'patch:') }}
+        run: pnpm version patch
+        env:
+          NEEDS_PUBLISH: true
 
-      - run: |
-          pnpm version minor \
-          NEW_VERSION=true
-        if: ${{ contains(github.event.head_commit.message, 'minor:') }}
+      - if: ${{ contains(github.event.head_commit.message, 'minor:') }}
+        run: pnpm version minor
+        env:
+          NEEDS_PUBLISH: true
 
-      - run: |
-          pnpm version major \
-          NEW_VERSION=true
-        if: ${{ contains(github.event.head_commit.message, 'major:') }}
+      - if: ${{ contains(github.event.head_commit.message, 'major:') }}
+        run: pnpm version major
+        env:
+          NEEDS_PUBLISH: true
 
       - run: VERSION=$(node -p "require('./package.json').version")
       - run: git tag ${VERSION}
-        if: ${{ ${NEW_VERSION} == 'true' }}
+        if: ${{ env.NEEDS_PUBLISH }}
       - run: git push "https://$GITHUB_ACTOR:${{ secrets.ACCESS_TOKEN }}@github.com/$GITHUB_REPOSITORY.git" --follow-tags
-        if: ${{ ${NEW_VERSION} == 'true' }}
+        if: ${{ env.NEEDS_PUBLISH }}
       - run: git push "https://$GITHUB_ACTOR:${{ secrets.ACCESS_TOKEN }}@github.com/$GITHUB_REPOSITORY.git" --tags
-        if: ${{ ${NEW_VERSION} == 'true' }}
+        if: ${{ env.NEEDS_PUBLISH }}
       - run: pnpm build
-        if: ${{ ${NEW_VERSION} == 'true' }}
+        if: ${{ env.NEEDS_PUBLISH }}
       - run: pnpm publish --access public
-        if: ${{ ${NEW_VERSION} == 'true' }}
+        if: ${{ env.NEEDS_PUBLISH }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

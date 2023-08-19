@@ -1,3 +1,4 @@
+import { Code, useMantineTheme } from '@mantine/core';
 import {
   IconClipboardCopy,
   IconSquareChevronDownFilled,
@@ -23,36 +24,57 @@ const json = {
   ],
 };
 
-export const Default: Story = {
-  render: () => (
-    <JsonView
-      collapseComponent={({ collapsed, setCollapsed }) => {
-        if (collapsed) {
+function JsonViewStory() {
+  const theme = useMantineTheme();
+
+  console.log(theme);
+
+  return (
+    <Code block>
+      <JsonView
+        collapseComponent={({ collapsed, setCollapsed }) => {
+          if (collapsed) {
+            return (
+              <IconSquareChevronRightFilled
+                onClick={() => setCollapsed(!collapsed)}
+                size={16}
+              />
+            );
+          }
+
           return (
-            <IconSquareChevronRightFilled
+            <IconSquareChevronDownFilled
               onClick={() => setCollapsed(!collapsed)}
               size={16}
             />
           );
-        }
-
-        return (
-          <IconSquareChevronDownFilled
-            onClick={() => setCollapsed(!collapsed)}
+        }}
+        clipboardComponent={({ value }) => (
+          <IconClipboardCopy
+            onClick={() => navigator.clipboard.writeText(value)}
             size={16}
+            style={{ cursor: 'pointer' }}
           />
-        );
-      }}
-      clipboardComponent={({ value }) => (
-        <IconClipboardCopy
-          onClick={() => navigator.clipboard.writeText(value)}
-          size={16}
-          style={{ cursor: 'pointer' }}
-        />
-      )}
-      json={JSON.stringify(json)}
-    />
-  ),
+        )}
+        json={JSON.stringify(json)}
+        theme={{
+          colors: {
+            key: theme.colors.gray[8],
+            literals: {
+              boolean: theme.colors.teal[6],
+              number: theme.colors.blue[6],
+              string: theme.colors.red[6],
+              null: theme.colors.orange[9],
+            },
+          },
+        }}
+      />
+    </Code>
+  );
+}
+
+export const Default: Story = {
+  render: () => <JsonViewStory />,
 };
 
 export default meta;

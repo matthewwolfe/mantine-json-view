@@ -43,14 +43,14 @@ jobs:
 
       - run: VERSION=$(node -p "require('./package.json').version")
       - run: git tag ${VERSION}
-        if: ${{ env.NEEDS_PUBLISH }}
+        if: ${{ env.NEEDS_PUBLISH == 'true' }}
       - run: git push "https://$GITHUB_ACTOR:${{ secrets.ACCESS_TOKEN }}@github.com/$GITHUB_REPOSITORY.git" --follow-tags
-        if: ${{ env.NEEDS_PUBLISH }}
+        if: ${{ env.NEEDS_PUBLISH == 'true' }}
       - run: git push "https://$GITHUB_ACTOR:${{ secrets.ACCESS_TOKEN }}@github.com/$GITHUB_REPOSITORY.git" --tags
-        if: ${{ env.NEEDS_PUBLISH }}
+        if: ${{ env.NEEDS_PUBLISH == 'true' }}
       - run: pnpm build
-        if: ${{ env.NEEDS_PUBLISH }}
+        if: ${{ env.NEEDS_PUBLISH == 'true' }}
       - run: pnpm publish --access public
-        if: ${{ env.NEEDS_PUBLISH }}
+        if: ${{ env.NEEDS_PUBLISH == 'true' }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

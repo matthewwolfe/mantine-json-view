@@ -48,3 +48,5 @@ function GettingStarted() {
   );
 }
 ```
+
+![Example Json View](static/images/readme-example.png 'Example Json View')

@@ -1,6 +1,6 @@
 {
   "name": "mantine-json-view",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "engines": {
     "node": "18",
     "pnpm": "8.6.12"

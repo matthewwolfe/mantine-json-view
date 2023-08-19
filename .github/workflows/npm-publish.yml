@@ -20,26 +20,35 @@ jobs:
       - run: git config user.name "$GITHUB_ACTOR"
       - run: PNPM_VERSION=$(node -p "require('./package.json').engines.pnpm")
       - run: npm install -g pnpm@$PNPM_VERSION
-        working-directory: ./
       - run: pnpm install --frozen-lockfile
       - run: pnpm test
-      - run: pnpm version patch
-        working-directory: ./
-        if: ${{ !contains(github.event.head_commit.message, 'minor') && !contains(github.event.head_commit.message, 'major') }}
-      - run: pnpm version minor
-        working-directory: ./
-        if: ${{ contains(github.event.head_commit.message, 'minor') }}
-      - run: pnpm version major
-        working-directory: ./
-        if: ${{ contains(github.event.head_commit.message, 'major') }}
+      - run: NEW_VERSION=false
+
+      - run: |
+          pnpm version patch \
+          NEW_VERSION=true
+        if: ${{ contains(github.event.head_commit.message, 'patch:') }}
+
+      - run: |
+          pnpm version minor \
+          NEW_VERSION=true
+        if: ${{ contains(github.event.head_commit.message, 'minor:') }}
+
+      - run: |
+          pnpm version major \
+          NEW_VERSION=true
+        if: ${{ contains(github.event.head_commit.message, 'major:') }}
+
       - run: VERSION=$(node -p "require('./package.json').version")
-        working-directory: ./
       - run: git tag ${VERSION}
+        if: ${{ NEW_VERSION === 'true' }}
       - run: git push "https://$GITHUB_ACTOR:${{ secrets.ACCESS_TOKEN }}@github.com/$GITHUB_REPOSITORY.git" --follow-tags
+        if: ${{ NEW_VERSION === 'true' }}
       - run: git push "https://$GITHUB_ACTOR:${{ secrets.ACCESS_TOKEN }}@github.com/$GITHUB_REPOSITORY.git" --tags
+        if: ${{ NEW_VERSION === 'true' }}
       - run: pnpm build
-        working-directory: ./
+        if: ${{ NEW_VERSION === 'true' }}
       - run: pnpm publish --access public
-        working-directory: ./
+        if: ${{ NEW_VERSION === 'true' }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -27,8 +27,6 @@ const json = {
 function JsonViewStory() {
   const theme = useMantineTheme();
 
-  console.log(theme);
-
   return (
     <Code block>
       <JsonView

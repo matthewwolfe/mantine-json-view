@@ -1,7 +1,8 @@
 import { useContext, useState } from 'react';
-import { Flex, Text } from '@mantine/core';
+import { Flex } from '@mantine/core';
 import { JsonArray } from 'components/JsonArray';
 import { JsonLiteral } from 'components/JsonLiteral';
+import { Text } from 'components/Text';
 import { JsonViewContext } from 'context';
 
 import type { Props } from './JsonObject.types';

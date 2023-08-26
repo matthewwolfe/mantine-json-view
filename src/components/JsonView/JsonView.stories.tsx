@@ -67,6 +67,7 @@ function JsonViewStory() {
               null: theme.colors.orange[9],
             },
           },
+          fontFamily: 'monospace',
         }}
       />
     </Code>

@@ -1,5 +1,6 @@
 import { useContext, useMemo } from 'react';
-import { Flex, Text, createStyles } from '@mantine/core';
+import { Flex, createStyles } from '@mantine/core';
+import { Text } from 'components/Text';
 import { JsonViewContext } from 'context';
 
 import type { JsonLiteralValue } from 'types/json';

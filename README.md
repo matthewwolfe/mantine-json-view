@@ -43,6 +43,7 @@ function GettingStarted() {
             null: theme.colors.orange[9],
           },
         },
+        fontFamily: 'monospace',
       }}
     />
   );

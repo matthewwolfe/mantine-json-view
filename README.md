@@ -50,4 +50,4 @@ function GettingStarted() {
 }
 ```
 
-![Example Json View](static/images/readme-example.png 'Example Json View')
+<img src="https://raw.githubusercontent.com/matthewwolfe/mantine-json-view/main/static/images/readme-example.png" width="360px" />

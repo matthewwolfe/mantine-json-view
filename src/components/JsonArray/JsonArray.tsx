@@ -40,11 +40,21 @@ function JsonArray({ array }: Props) {
         )}
       </Flex>
 
-      {!collapsed && (
-        <Flex direction="column">
+      <Flex direction="column">
+        <Flex align="center" gap="xs">
           <Text fz="md">{'"array": ['}</Text>
 
-          {array.children.map((child, index) => {
+          <Text c="dimmed" fz="xs">
+            {array.children.length === 1
+              ? '1 item'
+              : `${array.children.length} items`}
+          </Text>
+
+          {collapsed && <Text fz="md">{']'}</Text>}
+        </Flex>
+
+        {!collapsed &&
+          array.children.map((child, index) => {
             switch (child.type) {
               case 'array':
                 return <JsonArray array={child} key={index} />;
@@ -54,8 +64,7 @@ function JsonArray({ array }: Props) {
                 return <JsonLiteral key={index} literal={child} />;
             }
           })}
-        </Flex>
-      )}
+      </Flex>
 
       {!collapsed && (
         <Text

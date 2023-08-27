@@ -46,11 +46,21 @@ function JsonObject({ object }: Props) {
         )}
       </Flex>
 
-      {!collapsed && (
-        <Flex direction="column">
+      <Flex direction="column">
+        <Flex align="center" gap="xs">
           <Text fz="md">{'"object": {'}</Text>
 
-          {object.children.map((child, index) => {
+          <Text c="dimmed" fz="xs">
+            {object.children.length === 1
+              ? '1 item'
+              : `${object.children.length} items`}
+          </Text>
+
+          {collapsed && <Text fz="md">{'}'}</Text>}
+        </Flex>
+
+        {!collapsed &&
+          object.children.map((child, index) => {
             switch (child.type) {
               case 'array':
                 return <JsonArray array={child} key={index} />;
@@ -60,8 +70,7 @@ function JsonObject({ object }: Props) {
                 return <JsonLiteral key={index} literal={child} />;
             }
           })}
-        </Flex>
-      )}
+      </Flex>
 
       {!collapsed && (
         <Text fz="md" sx={styles.closeBracket}>

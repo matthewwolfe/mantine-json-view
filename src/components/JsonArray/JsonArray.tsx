@@ -42,7 +42,7 @@ function JsonArray({ array }: Props) {
 
       <Flex direction="column">
         <Flex align="center" gap="xs">
-          <Text fz="md">{'"array": ['}</Text>
+          <Text fz="md">{`"${array.key || 'array'}": [`}</Text>
 
           <Text c="dimmed" fz="xs">
             {array.children.length === 1

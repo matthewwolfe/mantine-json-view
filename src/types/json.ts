@@ -2,11 +2,13 @@ export type JsonAST = JsonArray | JsonObject;
 
 export interface JsonArray {
   children: Array<JsonArray | JsonObject | JsonLiteralValue>;
+  key: string;
   type: 'array';
 }
 
 export interface JsonObject {
   children: Array<JsonArray | JsonObject | JsonLiteralValue>;
+  key: string;
   type: 'object';
 }
 

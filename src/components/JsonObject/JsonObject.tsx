@@ -48,7 +48,7 @@ function JsonObject({ object }: Props) {
 
       <Flex direction="column">
         <Flex align="center" gap="xs">
-          <Text fz="md">{'"object": {'}</Text>
+          <Text fz="md">{`"${object.key || 'object'}": {`}</Text>
 
           <Text c="dimmed" fz="xs">
             {object.children.length === 1

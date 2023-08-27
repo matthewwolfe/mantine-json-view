@@ -18,11 +18,11 @@ function parse(json: string): JsonAST {
     const parsedJson = JSON.parse(json) as unknown;
 
     if (Array.isArray(parsedJson)) {
-      return arrayToAST(parsedJson);
+      return arrayToAST('', parsedJson);
     }
 
     if (isObject(parsedJson)) {
-      return objectToAST(parsedJson as object);
+      return objectToAST('', parsedJson as object);
     }
 
     throw new Error('Invalid json');
@@ -31,21 +31,23 @@ function parse(json: string): JsonAST {
   }
 }
 
-function objectToAST(json: object): JsonObject {
+function objectToAST(key: string, value: object): JsonObject {
   return {
-    type: 'object',
-    children: Object.entries(json).map(([key, value]) =>
+    children: Object.entries(value).map(([key, value]) =>
       unknownToAST(key, value)
     ),
+    key,
+    type: 'object',
   };
 }
 
-function arrayToAST(json: unknown[]): JsonArray {
+function arrayToAST(key: string, value: unknown[]): JsonArray {
   return {
-    type: 'array',
-    children: Object.entries(json).map(([key, value]) =>
+    children: Object.entries(value).map(([key, value]) =>
       unknownToAST(key, value)
     ),
+    key,
+    type: 'array',
   };
 }
 
@@ -54,11 +56,11 @@ function unknownToAST(
   value: unknown
 ): JsonArray | JsonObject | JsonLiteralValue {
   if (isObject(value)) {
-    return objectToAST(value as object);
+    return objectToAST(key, value as object);
   }
 
   if (Array.isArray(value)) {
-    return arrayToAST(value);
+    return arrayToAST(key, value);
   }
 
   if (typeof value === 'boolean') {

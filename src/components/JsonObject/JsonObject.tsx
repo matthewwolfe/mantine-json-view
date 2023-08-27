@@ -7,6 +7,18 @@ import { JsonViewContext } from 'context';
 
 import type { Props } from './JsonObject.types';
 
+const styles = {
+  closeBracket: {
+    textAlign: 'center',
+    width: '100%',
+  },
+  root: {
+    display: 'grid',
+    gridTemplateColumns: 'auto 1fr',
+    gap: 2,
+  },
+} as const;
+
 function JsonObject({ object }: Props) {
   const { collapseComponent: CollapseComponent, theme } =
     useContext(JsonViewContext);
@@ -14,13 +26,7 @@ function JsonObject({ object }: Props) {
   const [collapsed, setCollapsed] = useState<boolean>(false);
 
   return (
-    <Flex
-      sx={{
-        display: 'grid',
-        gridTemplateColumns: 'auto 1fr',
-        gap: 2,
-      }}
-    >
+    <Flex sx={styles.root}>
       <Flex align="center" direction="column" gap={4}>
         {CollapseComponent !== undefined && (
           <CollapseComponent
@@ -58,13 +64,7 @@ function JsonObject({ object }: Props) {
       )}
 
       {!collapsed && (
-        <Text
-          fz="md"
-          sx={{
-            textAlign: 'center',
-            width: '100%',
-          }}
-        >
+        <Text fz="md" sx={styles.closeBracket}>
           {'}'}
         </Text>
       )}

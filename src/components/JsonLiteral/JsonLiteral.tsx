@@ -46,7 +46,7 @@ function JsonLiteral({ literal }: Props) {
   const textValue = useMemo(() => getTextValue(literal), [literal]);
 
   return (
-    <Flex className={classes.root} px="xs">
+    <Flex className={classes.root}>
       <Text fz="md">
         <span className={classes.key}>"{literal.key}":</span>{' '}
         <span className={classes.value}>{textValue}</span>

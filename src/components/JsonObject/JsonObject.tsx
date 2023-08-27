@@ -8,13 +8,20 @@ import { JsonViewContext } from 'context';
 import type { Props } from './JsonObject.types';
 
 function JsonObject({ object }: Props) {
-  const { collapseComponent: CollapseComponent } = useContext(JsonViewContext);
+  const { collapseComponent: CollapseComponent, theme } =
+    useContext(JsonViewContext);
 
   const [collapsed, setCollapsed] = useState<boolean>(false);
 
   return (
-    <Flex direction={collapsed ? 'row' : 'column'}>
-      <Flex sx={{ gap: 4, alignItems: 'center' }}>
+    <Flex
+      sx={{
+        display: 'grid',
+        gridTemplateColumns: 'auto 1fr',
+        gap: 2,
+      }}
+    >
+      <Flex align="center" direction="column" gap={4}>
         {CollapseComponent !== undefined && (
           <CollapseComponent
             collapsed={collapsed}
@@ -22,20 +29,21 @@ function JsonObject({ object }: Props) {
           />
         )}
 
-        <Flex sx={{ alignItems: 'center' }} gap="xs">
-          <Text fz="md">{'"object": {'}</Text>
-
-          <Text c="dimmed">
-            {object.children.length}{' '}
-            {object.children.length !== 1 ? 'items' : 'item'}
-          </Text>
-
-          {collapsed && <Text fz="md">{'}'}</Text>}
-        </Flex>
+        {!collapsed && (
+          <Flex
+            sx={{
+              backgroundColor: theme?.colors.collapse,
+              flexGrow: 1,
+              width: 1,
+            }}
+          />
+        )}
       </Flex>
 
       {!collapsed && (
-        <Flex direction="column" px="xs">
+        <Flex direction="column">
+          <Text fz="md">{'"object": {'}</Text>
+
           {object.children.map((child, index) => {
             switch (child.type) {
               case 'array':
@@ -49,7 +57,17 @@ function JsonObject({ object }: Props) {
         </Flex>
       )}
 
-      {!collapsed && <Text fz="md">{'}'}</Text>}
+      {!collapsed && (
+        <Text
+          fz="md"
+          sx={{
+            textAlign: 'center',
+            width: '100%',
+          }}
+        >
+          {'}'}
+        </Text>
+      )}
     </Flex>
   );
 }

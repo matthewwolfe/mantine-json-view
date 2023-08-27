@@ -1,4 +1,4 @@
-import { Code, useMantineTheme } from '@mantine/core';
+import { Code, Flex, useMantineTheme } from '@mantine/core';
 import {
   IconClipboardCopy,
   IconSquareChevronDownFilled,
@@ -31,20 +31,27 @@ function JsonViewStory() {
     <Code block>
       <JsonView
         collapseComponent={({ collapsed, setCollapsed }) => {
-          if (collapsed) {
-            return (
-              <IconSquareChevronRightFilled
-                onClick={() => setCollapsed(!collapsed)}
-                size={16}
-              />
-            );
-          }
-
           return (
-            <IconSquareChevronDownFilled
-              onClick={() => setCollapsed(!collapsed)}
-              size={16}
-            />
+            <Flex
+              sx={{
+                alignItems: 'center',
+                height: 24,
+                justifyContent: 'center',
+                width: 24,
+              }}
+            >
+              {collapsed ? (
+                <IconSquareChevronRightFilled
+                  onClick={() => setCollapsed(!collapsed)}
+                  size={16}
+                />
+              ) : (
+                <IconSquareChevronDownFilled
+                  onClick={() => setCollapsed(!collapsed)}
+                  size={16}
+                />
+              )}
+            </Flex>
           );
         }}
         clipboardComponent={({ value }) => (
@@ -57,6 +64,7 @@ function JsonViewStory() {
         json={JSON.stringify(json)}
         theme={{
           colors: {
+            collapse: theme.colors.gray[4],
             key: theme.colors.gray[8],
             literals: {
               boolean: theme.colors.teal[6],

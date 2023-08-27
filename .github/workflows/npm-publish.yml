@@ -21,9 +21,9 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - run: git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
       - run: git config user.name "$GITHUB_ACTOR"
-      - run: PNPM_VERSION=$(node -p "require('./package.json').engines.pnpm")
-      - run: echo $PNPM_VERSION
-      - run: npm install -g pnpm@$PNPM_VERSION
+      - run: echo PNPM_VERSION=$(node -p "require('./package.json').engines.pnpm") >> $GITHUB_ENV
+      - run: echo ${{env.PNPM_VERSION}}
+      - run: npm install -g pnpm@${{env.PNPM_VERSION}}
       - run: pnpm install --frozen-lockfile
       - run: pnpm test
 

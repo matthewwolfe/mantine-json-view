@@ -7,10 +7,11 @@ test('parser output', () => {
   );
 
   expect(result).toEqual({
-    type: 'object',
     children: [
       { type: 'string', key: 'firstName', value: 'Test' },
       { type: 'string', key: 'lastName', value: 'User' },
     ],
+    key: '',
+    type: 'object',
   });
 });

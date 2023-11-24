@@ -2,19 +2,19 @@
 
 ## Install
 
-Mantine JSON View depends on `@mantine/core` and `@emotion/react`, so make sure to install
-those dependencies as well.
+Mantine JSON View depends on `@mantine/core`, so make sure to install
+that dependency as well.
 
 #### npm
 
 ```
-npm install --save @mantine/core @emotion/react mantine-json-view
+npm install --save @mantine/core mantine-json-view
 ```
 
 #### pnpm
 
 ```
-pnpm install --save @mantine/core @emotion/react mantine-json-view
+pnpm install --save @mantine/core mantine-json-view
 ```
 
 ## Usage

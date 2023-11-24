@@ -26,6 +26,7 @@ jobs:
       - run: npm install -g pnpm@${{env.PNPM_VERSION}}
       - run: pnpm install --frozen-lockfile
       - run: pnpm test
+      - run: pnpm typecheck
 
       - if: ${{ contains(github.event.head_commit.message, 'patch') }}
         run: |

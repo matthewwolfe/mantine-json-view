@@ -33,11 +33,13 @@ function JsonViewStory() {
         collapseComponent={({ collapsed, setCollapsed }) => {
           return (
             <Flex
-              sx={{
-                alignItems: 'center',
-                height: 24,
-                justifyContent: 'center',
-                width: 24,
+              styles={{
+                root: {
+                  alignItems: 'center',
+                  height: 24,
+                  justifyContent: 'center',
+                  width: 24,
+                },
               }}
             >
               {collapsed ? (

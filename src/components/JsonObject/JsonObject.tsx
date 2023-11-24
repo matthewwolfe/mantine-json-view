@@ -26,7 +26,11 @@ function JsonObject({ object }: Props) {
   const [collapsed, setCollapsed] = useState<boolean>(false);
 
   return (
-    <Flex sx={styles.root}>
+    <Flex
+      styles={{
+        root: styles.root,
+      }}
+    >
       <Flex align="center" direction="column" gap={4}>
         {CollapseComponent !== undefined && (
           <CollapseComponent
@@ -37,10 +41,12 @@ function JsonObject({ object }: Props) {
 
         {!collapsed && (
           <Flex
-            sx={{
-              backgroundColor: theme?.colors.collapse,
-              flexGrow: 1,
-              width: 1,
+            styles={{
+              root: {
+                backgroundColor: theme?.colors.collapse,
+                flexGrow: 1,
+                width: 1,
+              },
             }}
           />
         )}
@@ -73,7 +79,12 @@ function JsonObject({ object }: Props) {
       </Flex>
 
       {!collapsed && (
-        <Text fz="md" sx={styles.closeBracket}>
+        <Text
+          fz="md"
+          styles={{
+            root: styles.closeBracket,
+          }}
+        >
           {'}'}
         </Text>
       )}

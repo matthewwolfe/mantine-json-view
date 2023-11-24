@@ -4,15 +4,17 @@ import { JsonViewContext } from 'context';
 
 import type { Props } from './Text.types';
 
-function Text({ sx, ...props }: Props) {
+function Text({ styles, ...props }: Props) {
   const { theme } = useContext(JsonViewContext);
 
   return (
     <MantineText
       {...props}
-      sx={{
-        ...sx,
-        fontFamily: theme?.fontFamily,
+      styles={{
+        root: {
+          ...styles,
+          fontFamily: theme?.fontFamily,
+        },
       }}
     />
   );

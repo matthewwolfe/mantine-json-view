@@ -15,10 +15,12 @@ function JsonArray({ array }: Props) {
 
   return (
     <Flex
-      sx={{
-        display: 'grid',
-        gridTemplateColumns: 'auto 1fr',
-        gap: 2,
+      styles={{
+        root: {
+          display: 'grid',
+          gridTemplateColumns: 'auto 1fr',
+          gap: 2,
+        },
       }}
     >
       <Flex align="center" direction="column" gap={4}>
@@ -31,10 +33,12 @@ function JsonArray({ array }: Props) {
 
         {!collapsed && (
           <Flex
-            sx={{
-              backgroundColor: theme?.colors.collapse,
-              flexGrow: 1,
-              width: 1,
+            styles={{
+              root: {
+                backgroundColor: theme?.colors.collapse,
+                flexGrow: 1,
+                width: 1,
+              },
             }}
           />
         )}
@@ -69,9 +73,11 @@ function JsonArray({ array }: Props) {
       {!collapsed && (
         <Text
           fz="md"
-          sx={{
-            textAlign: 'center',
-            width: '100%',
+          styles={{
+            root: {
+              textAlign: 'center',
+              width: '100%',
+            },
           }}
         >
           {']'}

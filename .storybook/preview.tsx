@@ -1,3 +1,5 @@
+import '@mantine/core/styles.css';
+
 import React from 'react';
 import { MantineProvider } from '@mantine/core';
 
@@ -17,7 +19,7 @@ const preview: Preview = {
 
 export const decorators: Decorator[] = [
   (Story) => (
-    <MantineProvider withGlobalStyles withNormalizeCSS>
+    <MantineProvider>
       <Story />
     </MantineProvider>
   ),
